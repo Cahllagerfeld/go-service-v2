@@ -3,6 +3,7 @@ package data
 import (
 	"encoding/json"
 	"io"
+	"math/rand"
 )
 
 type Album struct {
@@ -33,4 +34,19 @@ func GetAlbums() Albums {
 func (a *Albums) ToJson(w io.Writer) error {
 	e := json.NewEncoder(w)
 	return e.Encode(a)
+}
+
+func (a *AlbumRequest) FromJson(r io.Reader) error {
+	e := json.NewDecoder(r)
+	return e.Decode(a)
+}
+
+func AddAlbum(a *AlbumRequest) {
+	var newAlbum Album
+
+	newAlbum.Id = int64(rand.Intn(999999))
+	newAlbum.Artist = a.Artist
+	newAlbum.Title = a.Title
+
+	albums = append(albums, &newAlbum)
 }
