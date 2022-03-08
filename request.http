@@ -1,0 +1,11 @@
+GET http://localhost:9090
+
+###
+
+POST http://localhost:9090/albums
+Content-Type: application/json
+
+{
+    "title": "<Your Title>",
+    "artist": "<Your Artist>"
+}
