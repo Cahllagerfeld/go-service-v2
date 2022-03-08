@@ -1,4 +1,4 @@
-module go-service-v2
+module github.com/cahllagerfeld/go-service-v2
 
 go 1.17
 
