@@ -2,8 +2,10 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/cahllagerfeld/go-service-v2/internal/albums/data"
+	"github.com/gorilla/mux"
 )
 
 func ListAlbums(rw http.ResponseWriter, r *http.Request) {
@@ -36,4 +38,17 @@ func AddAlbum(rw http.ResponseWriter, r *http.Request) {
 	if error != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func RemoveAlbum(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNoContent)
+	vars := mux.Vars(r)
+	
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
+
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+	}
+
+	data.RemoveAlbum(id)
 }

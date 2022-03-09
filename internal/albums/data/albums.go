@@ -57,3 +57,11 @@ func AddAlbum(a *AlbumRequest) Album {
 
 	return newAlbum
 }
+
+func RemoveAlbum(id int64) {
+	for i, a := range albums {
+		if a.Id == id {
+			albums = append(albums[:i], albums[i+1:]...)
+		}
+	}
+}
