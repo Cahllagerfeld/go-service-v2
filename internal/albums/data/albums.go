@@ -36,12 +36,17 @@ func (a *Albums) ToJson(w io.Writer) error {
 	return e.Encode(a)
 }
 
+func (a *Album) ToJson(w io.Writer) error {
+	e := json.NewEncoder(w)
+	return e.Encode(a)
+}
+
 func (a *AlbumRequest) FromJson(r io.Reader) error {
 	e := json.NewDecoder(r)
 	return e.Decode(a)
 }
 
-func AddAlbum(a *AlbumRequest) {
+func AddAlbum(a *AlbumRequest) Album {
 	var newAlbum Album
 
 	newAlbum.Id = int64(rand.Intn(999999))
@@ -49,4 +54,6 @@ func AddAlbum(a *AlbumRequest) {
 	newAlbum.Title = a.Title
 
 	albums = append(albums, &newAlbum)
+
+	return newAlbum
 }
