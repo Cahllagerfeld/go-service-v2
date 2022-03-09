@@ -21,11 +21,19 @@ func ListAlbums(rw http.ResponseWriter, r *http.Request) {
 }
 
 func AddAlbum(rw http.ResponseWriter, r *http.Request) {
+
+	rw.WriteHeader(http.StatusCreated)
 	var album data.AlbumRequest
 	err := album.FromJson(r.Body)
 
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}
-	data.AddAlbum(&album)
+	data := data.AddAlbum(&album)
+
+	error := data.ToJson(rw)
+
+	if error != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
 }
