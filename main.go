@@ -9,15 +9,18 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	getRouter := r.Methods("GET").Subrouter()
-	postRouter := r.Methods("POST").Subrouter()
-	deleteRouter := r.Methods("DELETE").Subrouter()
+	getRouter := r.Methods(http.MethodGet).Subrouter()
+	postRouter := r.Methods(http.MethodPost).Subrouter()
+	deleteRouter := r.Methods(http.MethodDelete).Subrouter()
+	putRouter := r.Methods(http.MethodPut).Subrouter()
 
 	postRouter.HandleFunc("/albums", handlers.AddAlbum)
 
 	getRouter.HandleFunc("/", handlers.ListAlbums)
 
-	deleteRouter.HandleFunc(("/albums/{id}"), handlers.RemoveAlbum)
+	deleteRouter.HandleFunc("/albums/{id}", handlers.RemoveAlbum)
+
+	putRouter.HandleFunc("/albums/{id}", handlers.UpdateAlbum)
 
 	http.ListenAndServe(":9090", r)
 }

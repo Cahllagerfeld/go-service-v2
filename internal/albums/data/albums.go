@@ -2,12 +2,13 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"math/rand"
 )
 
 type Album struct {
-	Id     int64
+	Id     int
 	Title  string
 	Artist string
 }
@@ -49,7 +50,7 @@ func (a *AlbumRequest) FromJson(r io.Reader) error {
 func AddAlbum(a *AlbumRequest) Album {
 	var newAlbum Album
 
-	newAlbum.Id = int64(rand.Intn(999999))
+	newAlbum.Id = rand.Intn(999999)
 	newAlbum.Artist = a.Artist
 	newAlbum.Title = a.Title
 
@@ -58,10 +59,36 @@ func AddAlbum(a *AlbumRequest) Album {
 	return newAlbum
 }
 
-func RemoveAlbum(id int64) {
+func RemoveAlbum(id int) {
 	for i, a := range albums {
 		if a.Id == id {
 			albums = append(albums[:i], albums[i+1:]...)
 		}
 	}
+}
+
+func UpdateAlbum(id int, a *AlbumRequest) error {
+	_, pos, err := findAlbum(id)
+	if err != nil {
+		return err
+	}
+
+	album := Album{
+		Title:  a.Title,
+		Artist: a.Artist,
+	}
+
+	album.Id = id
+	albums[pos] = &album
+
+	return nil
+}
+
+func findAlbum(id int) (*Album, int, error) {
+	for i, p := range albums {
+		if p.Id == id {
+			return p, i, nil
+		}
+	}
+	return nil, -1, fmt.Errorf("Album not found")
 }
