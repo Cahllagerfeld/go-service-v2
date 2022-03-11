@@ -67,13 +67,19 @@ func RemoveAlbum(id int) {
 	}
 }
 
-func UpdateAlbum(id int, a *Album) error {
+func UpdateAlbum(id int, a *AlbumRequest) error {
 	_, pos, err := findAlbum(id)
 	if err != nil {
 		return err
 	}
-	a.Id = id
-	albums[pos] = a
+
+	album := Album{
+		Title:  a.Title,
+		Artist: a.Artist,
+	}
+
+	album.Id = id
+	albums[pos] = &album
 
 	return nil
 }

@@ -33,9 +33,9 @@ func AddAlbum(rw http.ResponseWriter, r *http.Request) {
 	}
 	data := data.AddAlbum(&album)
 
-	error := data.ToJson(rw)
+	err = data.ToJson(rw)
 
-	if error != nil {
+	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -43,12 +43,31 @@ func AddAlbum(rw http.ResponseWriter, r *http.Request) {
 func RemoveAlbum(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(http.StatusNoContent)
 	vars := mux.Vars(r)
-	
-	id, err := strconv.ParseInt(vars["id"], 10, 64)
+
+	id, err := strconv.Atoi(vars["id"])
 
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}
 
 	data.RemoveAlbum(id)
+}
+
+func UpdateAlbum(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+	}
+	var album data.AlbumRequest
+	err = album.FromJson(r.Body)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
+
+	err = data.UpdateAlbum(id, &album)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusNotFound)
+	}
 }
