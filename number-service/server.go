@@ -1,4 +1,5 @@
 package server
+
 import (
 	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto/number_service"
 )
