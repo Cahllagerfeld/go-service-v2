@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cahllagerfeld/go-service-v2/internal/albums/data"
 	"github.com/gorilla/mux"
 )
 
