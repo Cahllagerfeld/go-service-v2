@@ -1,10 +1,12 @@
 package data
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
-	"math/rand"
+
+	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
 )
 
 type Album struct {
@@ -47,16 +49,19 @@ func (a *AlbumRequest) FromJson(r io.Reader) error {
 	return e.Decode(a)
 }
 
-func AddAlbum(a *AlbumRequest) Album {
-	var newAlbum Album
-
-	newAlbum.Id = rand.Intn(999999)
+func AddAlbum(a *AlbumRequest, nc protos.NumberClient) error {
+	var newAlbum *Album
+	resp, err := nc.GetRandomNumber(context.Background(), &protos.GetRandomNumberRequest{})
+	if err != nil {
+		return fmt.Errorf("Failed to get random number")
+	}
+	newAlbum.Id = int(resp.Rand)
 	newAlbum.Artist = a.Artist
 	newAlbum.Title = a.Title
 
-	albums = append(albums, &newAlbum)
+	albums = append(albums, newAlbum)
 
-	return newAlbum
+	return nil
 }
 
 func RemoveAlbum(id int) {

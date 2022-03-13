@@ -24,21 +24,23 @@ func main() {
 
 	defer conn.Close()
 
+	nc := protos.NewNumberClient(conn)
+
+	handler := handlers.NewAlbums(nc)
+
 	r := mux.NewRouter()
 	getRouter := r.Methods(http.MethodGet).Subrouter()
 	postRouter := r.Methods(http.MethodPost).Subrouter()
 	deleteRouter := r.Methods(http.MethodDelete).Subrouter()
 	putRouter := r.Methods(http.MethodPut).Subrouter()
 
-	nc := protos.NewNumberClient(conn)
+	postRouter.HandleFunc("/albums", handler.AddAlbum)
 
-	postRouter.HandleFunc("/albums", handlers.AddAlbum)
+	getRouter.HandleFunc("/", handler.ListAlbums)
 
-	getRouter.HandleFunc("/", handlers.ListAlbums)
+	deleteRouter.HandleFunc("/albums/{id}", handler.RemoveAlbum)
 
-	deleteRouter.HandleFunc("/albums/{id}", handlers.RemoveAlbum)
-
-	putRouter.HandleFunc("/albums/{id}", handlers.UpdateAlbum)
+	putRouter.HandleFunc("/albums/{id}", handler.UpdateAlbum)
 
 	http.ListenAndServe(":9090", r)
 }

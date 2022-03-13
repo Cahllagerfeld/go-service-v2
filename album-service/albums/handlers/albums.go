@@ -5,10 +5,19 @@ import (
 	"strconv"
 
 	"github.com/cahllagerfeld/go-service-v2/album-service/albums/data"
+	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
 	"github.com/gorilla/mux"
 )
 
-func ListAlbums(rw http.ResponseWriter, r *http.Request) {
+type Albums struct {
+	nc protos.NumberClient
+}
+
+func NewAlbums(nc protos.NumberClient) *Albums {
+	return &Albums{nc: nc}
+}
+
+func (a *Albums) ListAlbums(rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Set("Content-Type", "application/json")
 	rw.WriteHeader(http.StatusOK)
 
@@ -22,7 +31,7 @@ func ListAlbums(rw http.ResponseWriter, r *http.Request) {
 
 }
 
-func AddAlbum(rw http.ResponseWriter, r *http.Request) {
+func (a *Albums) AddAlbum(rw http.ResponseWriter, r *http.Request) {
 
 	rw.WriteHeader(http.StatusCreated)
 	var album data.AlbumRequest
@@ -31,16 +40,20 @@ func AddAlbum(rw http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}
-	data := data.AddAlbum(&album)
-
-	err = data.ToJson(rw)
+	err = data.AddAlbum(&album, a.nc)
 
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 	}
+
+	// err = data.ToJson(rw)
+
+	// if err != nil {
+	// 	http.Error(rw, err.Error(), http.StatusInternalServerError)
+	// }
 }
 
-func RemoveAlbum(rw http.ResponseWriter, r *http.Request) {
+func (a *Albums) RemoveAlbum(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(http.StatusNoContent)
 	vars := mux.Vars(r)
 
@@ -53,7 +66,7 @@ func RemoveAlbum(rw http.ResponseWriter, r *http.Request) {
 	data.RemoveAlbum(id)
 }
 
-func UpdateAlbum(rw http.ResponseWriter, r *http.Request) {
+func (a *Albums) UpdateAlbum(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	id, err := strconv.Atoi(vars["id"])
