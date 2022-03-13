@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "github.com/cahllagerfeld/go-service-v2/number-service";
+option go_package = "github.com/cahllagerfeld/go-service-v2/number-service/number;number";
 
 message GetRandomNumberRequest {}
 message GetRandomNumberResponse { int64 rand = 1; }
