@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/cahllagerfeld/go-service-v2/internal/albums/handlers"
+	"github.com/cahllagerfeld/go-service-v2/album-service/albums/handlers"
 	"github.com/gorilla/mux"
 )
 

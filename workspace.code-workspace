@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "name": "Number Service",
+            "path": "number-service"
+        },
+        {
+            "name": "Album Service",
+            "path": "album-service"
+        }
+    ],
+    "settings": {}
+}
