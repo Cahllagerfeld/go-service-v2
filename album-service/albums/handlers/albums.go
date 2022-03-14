@@ -40,17 +40,17 @@ func (a *Albums) AddAlbum(rw http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}
-	err = data.AddAlbum(&album, a.nc)
+	data, err := data.AddAlbum(&album, a.nc)
 
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 	}
 
-	// err = data.ToJson(rw)
+	err = data.ToJson(rw)
 
-	// if err != nil {
-	// 	http.Error(rw, err.Error(), http.StatusInternalServerError)
-	// }
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func (a *Albums) RemoveAlbum(rw http.ResponseWriter, r *http.Request) {

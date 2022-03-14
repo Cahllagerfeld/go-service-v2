@@ -49,19 +49,21 @@ func (a *AlbumRequest) FromJson(r io.Reader) error {
 	return e.Decode(a)
 }
 
-func AddAlbum(a *AlbumRequest, nc protos.NumberClient) error {
-	var newAlbum *Album
+func AddAlbum(a *AlbumRequest, nc protos.NumberClient) (Album, error) {
+	var newAlbum Album
+
 	resp, err := nc.GetRandomNumber(context.Background(), &protos.GetRandomNumberRequest{})
 	if err != nil {
-		return fmt.Errorf("Failed to get random number")
+		return newAlbum, err
 	}
+
 	newAlbum.Id = int(resp.Rand)
 	newAlbum.Artist = a.Artist
 	newAlbum.Title = a.Title
 
-	albums = append(albums, newAlbum)
+	albums = append(albums, &newAlbum)
 
-	return nil
+	return newAlbum, nil
 }
 
 func RemoveAlbum(id int) {
