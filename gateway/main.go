@@ -4,7 +4,7 @@ import (
 	"flag"
 	"net/http"
 
-	"github.com/cahllagerfeld/go-service-v2/album-service/albums/handlers"
+	"github.com/cahllagerfeld/go-service-v2/gateway/albums/handlers"
 	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"

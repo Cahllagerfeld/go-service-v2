@@ -6,8 +6,8 @@ import (
 	"net"
 	"os"
 
-	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
-	"github.com/cahllagerfeld/go-service-v2/number-service/server"
+	protos "github.com/cahllagerfeld/go-service-v2/number/proto"
+	"github.com/cahllagerfeld/go-service-v2/number/server"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
