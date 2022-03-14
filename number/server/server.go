@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 
-	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
+	protos "github.com/cahllagerfeld/go-service-v2/number/proto"
 )
 
 type Random struct{}
