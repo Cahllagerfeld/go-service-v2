@@ -16,7 +16,7 @@ func NewNumber() *Random {
 
 func (r *Random) GetRandomNumber(ctx context.Context, req *protos.GetRandomNumberRequest) (*protos.GetRandomNumberResponse, error) {
 	rand := rand.Intn(999999)
-	fmt.Printf("Random Number: %d", rand)
+	fmt.Println("Random Number:", rand)
 	return &protos.GetRandomNumberResponse{Rand: int64(rand)}, nil
 
 }
