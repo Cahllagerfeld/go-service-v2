@@ -2,11 +2,15 @@
     "folders": [
         {
             "name": "Number Service",
-            "path": "number-service"
+            "path": "number"
+        },
+        {
+            "name": "Gateway Service",
+            "path": "gateway"
         },
         {
             "name": "Album Service",
-            "path": "album-service"
+            "path": "album"
         }
     ],
     "settings": {}

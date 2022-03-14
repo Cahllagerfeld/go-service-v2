@@ -1,0 +1,4 @@
+syntax = "proto3";
+option go_package = "github.com/cahllagerfeld/go-service-v2/album/album;album";
+
+
