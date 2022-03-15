@@ -4,16 +4,18 @@ import (
 	"net/http"
 	"strconv"
 
+	albumProtos "github.com/cahllagerfeld/go-service-v2/album/proto"
 	"github.com/cahllagerfeld/go-service-v2/gateway/albums/data"
-	protos "github.com/cahllagerfeld/go-service-v2/number/proto"
+	numberProtos "github.com/cahllagerfeld/go-service-v2/number/proto"
 	"github.com/gorilla/mux"
 )
 
 type Albums struct {
-	nc protos.NumberClient
+	nc numberProtos.NumberClient
+	ac albumProtos.AlbumClient
 }
 
-func NewAlbums(nc protos.NumberClient) *Albums {
+func NewAlbums(nc numberProtos.NumberClient, ac albumProtos.AlbumClient) *Albums {
 	return &Albums{nc: nc}
 }
 
