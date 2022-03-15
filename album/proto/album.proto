@@ -1,0 +1,51 @@
+syntax = "proto3";
+option go_package = "github.com/cahllagerfeld/go-service-v2/album/album;album";
+
+
+message AlbumResponse {
+    int64 Id = 1;
+    string Title = 2;
+    string Artist = 3;
+}
+
+message DeleteAlbumResponse{}
+
+message AlbumType {
+    int64 Id = 1;
+    string Title = 2;
+    string Artist = 3;
+}
+
+message CreateAlbumRequest {
+    string Title = 1;
+    string Artist = 2;
+}
+
+message GetAllAlbumsResponse {
+    repeated AlbumType albums = 1;
+}
+
+message GetAllAlbumsRequest {
+}
+
+message GetSingleAlbumRequest {
+    int64 Id = 1;
+}
+
+message DeleteAlbumRequest {
+    int64 Id = 1;
+}
+
+message ReplaceAlbumRequest {
+    int64 Id = 1;
+    string Title = 2;
+    string Artist = 3;
+}
+
+service Album {
+    rpc CreateAlbum(CreateAlbumRequest) returns (AlbumResponse);
+    rpc GetAllAlbums(GetAllAlbumsRequest) returns (GetAllAlbumsResponse);
+    rpc GetAlbumById(GetSingleAlbumRequest) returns (AlbumResponse);
+    rpc DeleteAlbumById(DeleteAlbumRequest) returns (DeleteAlbumResponse);
+    rpc ReplaceAlbumById(ReplaceAlbumRequest) returns (AlbumResponse);
+  }
