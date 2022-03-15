@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cahllagerfeld/go-service-v2/album-service/albums/data"
-	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
+	"github.com/cahllagerfeld/go-service-v2/gateway/albums/data"
+	protos "github.com/cahllagerfeld/go-service-v2/number/proto"
 	"github.com/gorilla/mux"
 )
 

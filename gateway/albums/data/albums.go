@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
+	protos "github.com/cahllagerfeld/go-service-v2/number/proto"
 )
 
 type Album struct {

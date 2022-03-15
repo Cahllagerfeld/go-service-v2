@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/cahllagerfeld/go-service-v2/gateway/albums/handlers"
-	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
+	protos "github.com/cahllagerfeld/go-service-v2/number/proto"
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 )
