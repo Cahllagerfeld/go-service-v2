@@ -52,33 +52,42 @@ func (a *Albums) AddAlbum(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Albums) RemoveAlbum(rw http.ResponseWriter, r *http.Request) {
-	rw.WriteHeader(http.StatusNoContent)
+
 	vars := mux.Vars(r)
 
-	id, err := strconv.Atoi(vars["id"])
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
 
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}
+	resp, err := a.ac.DeleteAlbumById(context.Background(), &albumProtos.DeleteAlbumRequest{Id: id})
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+	}
+	_ = resp
+	rw.Header().Set("Content-Type", "application/json")
+	rw.WriteHeader(http.StatusOK)
 
-	data.RemoveAlbum(id)
 }
 
 func (a *Albums) UpdateAlbum(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	id, err := strconv.Atoi(vars["id"])
+	id, err := strconv.ParseInt(vars["id"], 10, 64)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}
 	var album data.AlbumRequest
-	err = album.FromJson(r.Body)
+	err = json.NewDecoder(r.Body).Decode(&album)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 	}
 
-	err = data.UpdateAlbum(id, &album)
+	resp, err := a.ac.ReplaceAlbumById(context.Background(), &albumProtos.ReplaceAlbumRequest{Id: id, Title: album.Title, Artist: album.Artist})
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusNotFound)
 	}
+	rw.Header().Set("Content-Type", "application/json")
+	rw.WriteHeader(http.StatusOK)
+	json.NewEncoder(rw).Encode(resp)
 }

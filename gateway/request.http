@@ -12,10 +12,13 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:9090/albums/5
+PUT http://localhost:9090/albums/1
 Content-Type: application/json
 
 {
     "title": "Palmen aus Plastik",
     "artist": "RAF Camora"
 }
+
+###
+DELETE http://localhost:9090/albums/5
