@@ -15,8 +15,8 @@ type Albums struct {
 	ac albumProtos.AlbumClient
 }
 
-func NewAlbums(nc numberProtos.NumberClient, ac albumProtos.AlbumClient) *Albums {
-	return &Albums{nc: nc}
+func NewAlbums(ac albumProtos.AlbumClient) *Albums {
+	return &Albums{ac: ac}
 }
 
 func (a *Albums) ListAlbums(rw http.ResponseWriter, r *http.Request) {

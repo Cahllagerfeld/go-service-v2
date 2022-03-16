@@ -1,12 +1,9 @@
 package data
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
-
-	protos "github.com/cahllagerfeld/go-service-v2/number/proto"
 )
 
 type Album struct {
@@ -49,15 +46,10 @@ func (a *AlbumRequest) FromJson(r io.Reader) error {
 	return e.Decode(a)
 }
 
-func AddAlbum(a *AlbumRequest, nc protos.NumberClient) (Album, error) {
+func AddAlbum(a *AlbumRequest) (Album, error) {
 	var newAlbum Album
 
-	resp, err := nc.GetRandomNumber(context.Background(), &protos.GetRandomNumberRequest{})
-	if err != nil {
-		return newAlbum, err
-	}
-
-	newAlbum.Id = int(resp.Rand)
+	newAlbum.Id = 5
 	newAlbum.Artist = a.Artist
 	newAlbum.Title = a.Title
 
