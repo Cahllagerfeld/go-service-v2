@@ -31,9 +31,9 @@ func AddAlbum(a *albumProtos.CreateAlbumRequest, nc numerProtos.NumberClient) (*
 	return newAlbum, nil
 }
 
-func RemoveAlbum(id int64) *albumProtos.DeleteAlbumResponse {
+func RemoveAlbum(a *albumProtos.DeleteAlbumRequest) *albumProtos.DeleteAlbumResponse {
 	for i, a := range albums {
-		if a.Id == id {
+		if a.Id == a.Id {
 			albums = append(albums[:i], albums[i+1:]...)
 		}
 	}
@@ -41,9 +41,11 @@ func RemoveAlbum(id int64) *albumProtos.DeleteAlbumResponse {
 	return &albumProtos.DeleteAlbumResponse{}
 }
 
-func findAlbum(id int64) (*albumProtos.AlbumResponse, error) {
+func UpdateAlbum(id int64, a *albumProtos.ReplaceAlbumRequest)
+
+func findAlbum(a *albumProtos.GetSingleAlbumRequest) (*albumProtos.AlbumResponse, error) {
 	for _, a := range albums {
-		if a.Id == id {
+		if a.Id == a.Id {
 			return a, nil
 		}
 	}
