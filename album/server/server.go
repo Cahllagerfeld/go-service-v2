@@ -19,7 +19,7 @@ func (a *Album) CreateAlbum(ctx context.Context, req *albumProto.CreateAlbumRequ
 }
 
 func (a *Album) GetAllAlbums(ctx context.Context, req *albumProto.GetAllAlbumsRequest) (*albumProto.GetAllAlbumsResponse, error) {
-	var response = []*albumProto.AlbumType{
+	var response = []*albumProto.AlbumResponse{
 		{Id: 4, Title: "Aghori", Artist: "Savas"},
 	}
 	return &albumProto.GetAllAlbumsResponse{Albums: response}, nil
