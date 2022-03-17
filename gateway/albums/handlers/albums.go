@@ -88,6 +88,6 @@ func (a *Albums) UpdateAlbum(rw http.ResponseWriter, r *http.Request) {
 		http.Error(rw, err.Error(), http.StatusNotFound)
 	}
 	rw.Header().Set("Content-Type", "application/json")
-	rw.WriteHeader(http.StatusOK)
+	rw.WriteHeader(http.StatusNoContent)
 	json.NewEncoder(rw).Encode(resp)
 }
