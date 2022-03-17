@@ -7,9 +7,13 @@ import (
 	"strconv"
 
 	albumProtos "github.com/cahllagerfeld/go-service-v2/album/proto"
-	"github.com/cahllagerfeld/go-service-v2/gateway/albums/data"
 	"github.com/gorilla/mux"
 )
+
+type AlbumRequest struct {
+	Title  string `json:"title"`
+	Artist string `json:"artist"`
+}
 
 type Albums struct {
 	ac albumProtos.AlbumClient
@@ -33,7 +37,7 @@ func (a *Albums) ListAlbums(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Albums) AddAlbum(rw http.ResponseWriter, r *http.Request) {
-	var album data.AlbumRequest
+	var album AlbumRequest
 	err := json.NewDecoder(r.Body).Decode(&album)
 
 	if err != nil {
@@ -77,7 +81,7 @@ func (a *Albums) UpdateAlbum(rw http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusBadRequest)
 	}
-	var album data.AlbumRequest
+	var album AlbumRequest
 	err = json.NewDecoder(r.Body).Decode(&album)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
