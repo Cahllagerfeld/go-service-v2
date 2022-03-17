@@ -10,11 +10,6 @@ message AlbumResponse {
 
 message DeleteAlbumResponse{}
 
-message AlbumType {
-    int64 Id = 1;
-    string Title = 2;
-    string Artist = 3;
-}
 
 message CreateAlbumRequest {
     string Title = 1;
@@ -22,7 +17,7 @@ message CreateAlbumRequest {
 }
 
 message GetAllAlbumsResponse {
-    repeated AlbumType albums = 1;
+    repeated AlbumResponse albums = 1;
 }
 
 message GetAllAlbumsRequest {

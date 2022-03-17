@@ -4,8 +4,8 @@ import (
 	"flag"
 	"net/http"
 
+	albumProtos "github.com/cahllagerfeld/go-service-v2/album/proto"
 	"github.com/cahllagerfeld/go-service-v2/gateway/albums/handlers"
-	protos "github.com/cahllagerfeld/go-service-v2/number-service/proto"
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 )
@@ -17,16 +17,16 @@ var (
 func main() {
 	flag.Parse()
 
-	conn, err := grpc.Dial("localhost:9091", grpc.WithInsecure())
+	albumConn, err := grpc.Dial("localhost:9092", grpc.WithInsecure())
 	if err != nil {
 		panic(err)
 	}
 
-	defer conn.Close()
+	defer albumConn.Close()
 
-	nc := protos.NewNumberClient(conn)
+	ac := albumProtos.NewAlbumClient(albumConn)
 
-	handler := handlers.NewAlbums(nc)
+	handler := handlers.NewAlbums(ac)
 
 	r := mux.NewRouter()
 	getRouter := r.Methods(http.MethodGet).Subrouter()
