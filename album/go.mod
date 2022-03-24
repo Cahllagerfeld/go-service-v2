@@ -3,12 +3,12 @@ module github.com/cahllagerfeld/go-service-v2/album
 go 1.17
 
 require (
+	github.com/cahllagerfeld/go-service-v2/number v0.0.0-20220315193103-f5b7e5cbf5c2
 	google.golang.org/grpc v1.45.0
 	google.golang.org/protobuf v1.27.1
 )
 
 require (
-	github.com/cahllagerfeld/go-service-v2/number v0.0.0-20220315193103-f5b7e5cbf5c2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	golang.org/x/sys v0.0.0-20220315194320-039c03cc5b86 // indirect
