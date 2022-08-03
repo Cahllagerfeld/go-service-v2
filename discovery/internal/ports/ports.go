@@ -7,3 +7,9 @@ type DiscoveryRepository interface {
 	Delete(id string) error
 	GetAll() ([]*domain.Service, error)
 }
+
+type DiscoveryService interface {
+	register(service domain.Service) (*domain.Service, error)
+	getAll() ([]*domain.Service, error)
+	unregister(id string) error
+}
