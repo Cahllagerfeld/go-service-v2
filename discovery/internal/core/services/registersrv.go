@@ -1,14 +1,18 @@
 package registersrv
 
 import (
-	"github.com/cahllagerfeld/go-service-v2/discovery/core/domain"
+	"github.com/cahllagerfeld/go-service-v2/discovery/internal/core/domain"
+	"github.com/cahllagerfeld/go-service-v2/discovery/internal/ports"
 )
 
 type Service struct {
+	repo ports.DiscoveryRepository
 }
 
-func New() *Service {
-	return &Service{}
+func New(repository ports.DiscoveryRepository) *Service {
+	return &Service{
+		repo: repository,
+	}
 }
 
 func (serv *Service) register(service *domain.Service) (*domain.Service, error) {
