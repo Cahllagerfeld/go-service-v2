@@ -11,6 +11,10 @@
         {
             "name": "Album Service",
             "path": "album"
+        },
+        {
+            "name": "Discovery Service",
+            "path": "discovery"
         }
     ],
     "settings": {}
