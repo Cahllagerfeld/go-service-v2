@@ -1,0 +1,17 @@
+{
+    "folders": [
+        {
+            "name": "Number Service",
+            "path": "number"
+        },
+        {
+            "name": "Gateway Service",
+            "path": "gateway"
+        },
+        {
+            "name": "Album Service",
+            "path": "album"
+        }
+    ],
+    "settings": {}
+}
